@@ -1,0 +1,26 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Voltmetre num.");
+  delay(1500);
+  lcd.clear();
+}
+
+void loop() {
+  int valeur = analogRead(A0);              // 0 a 1023
+  float tension = valeur * 5.0 / 1023.0;    // conversion en volts
+
+  lcd.setCursor(0, 0);
+  lcd.print("Tension mesuree");
+  lcd.setCursor(0, 1);
+  lcd.print(tension, 2);
+  lcd.print(" V ");
+
+  delay(200);
+}
